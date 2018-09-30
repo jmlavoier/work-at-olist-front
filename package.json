@@ -8,7 +8,9 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
-    "build": "webpack --mode production --config webpack.config.prod.js"
+    "build": "webpack --mode production --config webpack.config.prod.js",
+    "lint": "esw src/** -w",
+    "lint:fix": "eslint src/** --fix"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.11",

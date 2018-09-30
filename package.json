@@ -9,6 +9,9 @@
     "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
     "build": "webpack --mode production --config webpack.config.prod.js",
+    "test": "jest --config jestconfig.json",
+    "test:watch": "jest --config jestconfig.json --watch",
+    "test:cov": "jest --config jestconfig.json --coverage",
     "lint": "esw src/** -w",
     "lint:fix": "eslint src/** --fix"
   },

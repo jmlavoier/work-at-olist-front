@@ -8,6 +8,6 @@ storiesOf('Button', module)
   .add('Default', withInfo()(() => (
     <Button>Criar conta</Button>
   )))
-  .add('Loading', withInfo()(() => (
+  .add('With loading', withInfo()(() => (
     <Button isLoading>Criar conta</Button>
   )));

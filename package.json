@@ -13,7 +13,8 @@
     "test:watch": "jest --config jestconfig.json --watch",
     "test:cov": "jest --config jestconfig.json --coverage",
     "lint": "esw src/** -w",
-    "lint:fix": "eslint src/** --fix"
+    "lint:fix": "eslint src/** --fix",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.11",
@@ -40,7 +41,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
     "jest-enzyme": "^6.1.2",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.9.3",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.5",

@@ -5,5 +5,5 @@ render(
   <div>
     Staring Olist Challenge
   </div>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

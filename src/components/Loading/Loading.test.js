@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import Loading from './Loading';
 
-describe('<Button></Button>', () => {
+describe('<Loading />', () => {
   it('Should component match snapshot', () => {
     const wrapper = shallow(<Loading />);
 

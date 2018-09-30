@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Button></Button> Should component match snapshot 1`] = `
+exports[`<Loading /> Should component match snapshot 1`] = `
 <div
   className="loading"
 >

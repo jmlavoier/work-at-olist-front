@@ -6,7 +6,7 @@ import InputText from './InputText';
 
 storiesOf('InputText', module)
   .add('Default', withInfo()(() => (
-    <InputText value="João Milton" onChange={() => {}}/>
+    <InputText value="" onChange={() => {}}/>
   )))
   .add('Invalid', withInfo()(() => (
     <InputText value="João Milton" onChange={() => {}} isValid={false}/>

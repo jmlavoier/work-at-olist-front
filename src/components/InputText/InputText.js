@@ -4,8 +4,9 @@ import classNames from 'classnames';
 
 import styles from './InputText.sass';
 
-const getInputStyles = isValid => classNames(styles['input-text'], {
-  [styles.invalid]: !isValid,
+const getInputStyles = (value, isValid) => classNames(styles['input-text'], {
+  [styles.invalid]: value && !isValid,
+  [styles.valid]: value && isValid,
 });
 
 const InputText = ({
@@ -17,7 +18,7 @@ const InputText = ({
 }) => (
   <div>
     {label && <span className={styles.label}>{label}</span>}
-    <input className={getInputStyles(isValid)} value={value} onChange={onChange} {...otherProps} />
+    <input className={getInputStyles(value, isValid)} value={value} onChange={onChange} {...otherProps} />
   </div>
 );
 

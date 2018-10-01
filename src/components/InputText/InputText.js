@@ -13,10 +13,11 @@ const InputText = ({
   onChange,
   isValid,
   label,
+  ...otherProps
 }) => (
   <div>
     {label && <span className={styles.label}>{label}</span>}
-    <input className={getInputStyles(isValid)} value={value} onChange={onChange} />
+    <input className={getInputStyles(isValid)} value={value} onChange={onChange} {...otherProps} />
   </div>
 );
 

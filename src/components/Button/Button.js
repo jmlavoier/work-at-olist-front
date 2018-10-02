@@ -9,8 +9,13 @@ const getStyles = isLoading => classNames(styles.button, {
   [styles['border-rounded']]: isLoading,
 });
 
-const Button = ({ children, onClick, isLoading }) => (
-  <button className={getStyles(isLoading)} onClick={onClick}>
+const Button = ({
+  children,
+  onClick,
+  isLoading,
+  ...otherProps
+}) => (
+  <button className={getStyles(isLoading)} onClick={onClick} {...otherProps}>
     {!isLoading ? children : <Loading />}
   </button>
 );

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> Should component match snapshot 1`] = `
+<div>
+  <Box>
+    <div
+      className="subtitle"
+    >
+      <h2>
+        Crie sua conta
+      </h2>
+    </div>
+    <InputText
+      isValid={true}
+      label="Nome completo"
+      onChange={[Function]}
+      value=""
+    />
+    <InputText
+      isValid={true}
+      label="E-mail"
+      onChange={[Function]}
+      value=""
+    />
+    <PasswordStrength
+      onChange={[Function]}
+      value=""
+    />
+    <InputText
+      isValid={true}
+      label="Confirme sua senha"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <div
+      className="footer"
+    >
+      <Button
+        isLoading={false}
+        onClick={[Function]}
+      >
+        Criar conta
+      </Button>
+    </div>
+  </Box>
+</div>
+`;

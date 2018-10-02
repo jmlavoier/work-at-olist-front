@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Success /> Should component match snapshot 1`] = `
+<div
+  className="success"
+>
+  <Box>
+    <div
+      className="icon"
+    >
+      <IconRight />
+    </div>
+    <div
+      className="body"
+    >
+      <h2>
+        Tudo certo
+      </h2>
+      <p>
+        Verifique sua caixa de entrada para confirmar seu e-mail.
+      </p>
+    </div>
+  </Box>
+</div>
+`;

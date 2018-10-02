@@ -1,0 +1,24 @@
+@import 'styles/variables'
+@import 'styles/helpers'
+
+.input-text
+  @extend .text-default
+  height: 44px
+  padding-left: 15px
+  padding-right: 15px
+  border: 1px solid $border-color
+  background-color: $color-default-white
+  box-shadow: inset 0 3px 3px rgba(0, 0, 0, 0.05)
+  box-sizing: border-box
+  outline: none
+
+.invalid
+  border-color: $color-default-red
+
+.valid
+  border-color: $color-default-green
+
+.label
+  @extend .text-default
+  display: block
+  padding-bottom: 6px

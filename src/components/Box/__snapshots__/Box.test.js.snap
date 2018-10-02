@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Box /> Should component match snapshot 1`] = `
+<div
+  className="box"
+>
+  <div
+    className="header"
+  >
+    <Logo />
+  </div>
+  <div />
+</div>
+`;

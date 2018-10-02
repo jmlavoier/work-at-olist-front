@@ -1,6 +1,14 @@
 module.exports = [
   { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
   {
+    test: /\.(otf)$/,
+    use: [
+      {
+        loader: 'file-loader',
+      }
+    ]
+  },
+  {
     test: /\.sass$|\.css$/,
     use: [{
       loader: "style-loader"

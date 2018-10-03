@@ -14,10 +14,18 @@ import {
   styleSheet,
 } from './helpers';
 
-const PasswordStrength = ({ value, onChange }) => {
+const handleChange = onChange => (event) => {
+  const { value } = event.currentTarget;
   const rules = createRules(value);
   const strengthValue = getStrengthvalue(rules);
   const isValid = strengthValue === 3;
+
+  onChange(event, isValid);
+};
+
+const PasswordStrength = ({ value, onChange, isValid }) => {
+  const rules = createRules(value);
+  const strengthValue = getStrengthvalue(rules);
 
   return (
     <Fragment>
@@ -25,7 +33,7 @@ const PasswordStrength = ({ value, onChange }) => {
         type="password"
         label="Senha"
         value={value}
-        onChange={onChange}
+        onChange={handleChange(onChange, rules)}
         style={styleSheet.inputText}
         isValid={isValid}
       />
@@ -48,6 +56,11 @@ const PasswordStrength = ({ value, onChange }) => {
 PasswordStrength.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  isValid: PropTypes.bool,
+};
+
+PasswordStrength.defaultProps = {
+  isValid: false,
 };
 
 export default PasswordStrength;

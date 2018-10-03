@@ -43,5 +43,6 @@ export const getStylesRule = (value, attendRule) => classNames(styles.rule, {
 export const styleSheet = {
   inputText: {
     width: '100%',
+    marginBottom: 0,
   },
 };

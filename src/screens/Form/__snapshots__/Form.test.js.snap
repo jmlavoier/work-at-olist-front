@@ -11,23 +11,24 @@ exports[`<Form /> Should component match snapshot 1`] = `
       </h2>
     </div>
     <InputText
-      isValid={true}
+      isValid={false}
       label="Nome completo"
       onChange={[Function]}
       value=""
     />
     <InputText
-      isValid={true}
+      isValid={false}
       label="E-mail"
       onChange={[Function]}
       value=""
     />
     <PasswordStrength
+      isValid={false}
       onChange={[Function]}
       value=""
     />
     <InputText
-      isValid={true}
+      isValid={false}
       label="Confirme sua senha"
       onChange={[Function]}
       type="password"
@@ -37,8 +38,10 @@ exports[`<Form /> Should component match snapshot 1`] = `
       className="footer"
     >
       <Button
+        disabled={true}
         isLoading={false}
         onClick={[Function]}
+        type="buton"
       >
         Criar conta
       </Button>

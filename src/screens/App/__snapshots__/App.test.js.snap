@@ -7,7 +7,33 @@ exports[`<App /> Should component match snapshot 1`] = `
   <div
     className="box"
   >
-    <Success />
+    <App
+      form={
+        Object {
+          "buttonSubmit": Object {
+            "isLoading": false,
+          },
+          "confirmpass": Object {
+            "isValid": false,
+            "value": "",
+          },
+          "email": Object {
+            "isValid": false,
+            "value": "",
+          },
+          "name": Object {
+            "isValid": false,
+            "value": "",
+          },
+          "password": Object {
+            "isValid": false,
+            "value": "",
+          },
+        }
+      }
+      onChange={[Function]}
+      onSubmit={[Function]}
+    />
   </div>
 </div>
 `;

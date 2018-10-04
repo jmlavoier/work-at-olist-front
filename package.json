@@ -17,6 +17,9 @@
     "lint:fix": "eslint src/** --fix",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
+  "engines": {
+    "yarn": "1.7.0"
+  },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.11",
     "@storybook/addon-info": "^3.4.11",
@@ -58,8 +61,6 @@
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "react-dom": "^16.5.2"
   }
 }

@@ -1,13 +1,14 @@
 var path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var webpackRules = require('./scripts/webpack.rules');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
 const PATHS = {
-  root: path.resolve(__dirname, 'build'),
+  root: path.resolve(__dirname),
   build: path.resolve(__dirname, 'build'),
-  docs: path.resolve(__dirname, 'docs'),
-  src: path.resolve(__dirname, 'src')
+  src: path.resolve(__dirname, 'src'),
+  templates: path.resolve(__dirname, 'templates')
 }
 
 module.exports = {
@@ -22,11 +23,15 @@ module.exports = {
   plugins: [
     new UglifyJSPlugin({
       sourceMap: true
+    }),
+    new HtmlWebpackPlugin({
+      template: PATHS.templates + '/index.html',
+      title: 'Olist challenge',
     })
   ],
   output: {
     filename: 'bundle.js',
-    path: PATHS.docs
+    path: PATHS.build
   },
   module: {
     rules: webpackRules

@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
-    "build": "webpack --mode production --config webpack.config.prod.js",
+    "postinstall": "webpack --mode production --config webpack.config.prod.js",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",
     "test:cov": "jest --config jestconfig.json --coverage",
@@ -42,6 +42,7 @@
     "eslint-plugin-react": "^7.4.0",
     "eslint-watch": "^3.1.4",
     "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
     "jest-enzyme": "^6.1.2",

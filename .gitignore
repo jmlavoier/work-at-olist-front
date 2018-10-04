@@ -7,7 +7,7 @@
 /coverage
 
 # bundle
-/build/bundle.js
+/build
 
 # misc
 .DS_Store

@@ -21,12 +21,18 @@ const isFormValid = form => (
     && form.confirmpass.isValid
 );
 
-const handleChange = (fieldName, onChange, validate = defaultValidation) =>
+const handleChange = (fieldName, onChange, form, validate = defaultValidation) =>
   (event, prevIsValid) => {
     const { value } = event.currentTarget;
     const isValid = validate(value, prevIsValid);
+    const { confirmpass } = form;
 
     onChange(fieldName, value, isValid);
+
+    if (fieldName === 'password') {
+      const isConfirmPassValid = confirmapassValidation(value)(confirmpass.value);
+      onChange('confirmpass', confirmpass.value, isConfirmPassValid);
+    }
   };
 
 const handleClick = (onSubmit, form) => () => {
@@ -52,25 +58,30 @@ const App = ({ form, onChange, onSubmit }) => {
         </div>
         <InputText
           label="Nome completo"
-          onChange={handleChange('name', onChange, nameValidation)}
+          onChange={handleChange('name', onChange, form, nameValidation)}
           value={name.value}
           isValid={name.isValid}
         />
         <InputText
           label="E-mail"
-          onChange={handleChange('email', onChange, emailValidation)}
+          onChange={handleChange('email', onChange, form, emailValidation)}
           value={email.value}
           isValid={email.isValid}
         />
         <PasswordStrength
-          onChange={handleChange('password', onChange)}
+          onChange={handleChange('password', onChange, form)}
           value={password.value}
           isValid={password.isValid}
         />
         <InputText
           type="password"
           label="Confirme sua senha"
-          onChange={handleChange('confirmpass', onChange, confirmapassValidation(password.value))}
+          onChange={handleChange(
+            'confirmpass',
+            onChange,
+            form,
+            confirmapassValidation(password.value),
+          )}
           value={confirmpass.value}
           isValid={confirmpass.isValid}
         />

@@ -6,9 +6,9 @@
   "author": "joaolavoier-luizalabs <joao.filho@luizalabs.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
+    "start": "webpack --mode production --config webpack.config.prod.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
-    "postinstall": "webpack --mode production --config webpack.config.prod.js",
+    "dev": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",
     "test:cov": "jest --config jestconfig.json --coverage",

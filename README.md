@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/jmlavoier/work-at-olist-front.svg?branch=master)](https://travis-ci.org/jmlavoier/work-at-olist-front)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Npm version](https://img.shields.io/badge/npm-5.6.0-brightgreen.svg)](https://www.npmjs.com/)
+[![Coverage Status](https://coveralls.io/repos/github/jmlavoier/work-at-olist-front/badge.svg?branch=master)](https://coveralls.io/github/jmlavoier/work-at-olist-front?branch=master)
 > Magnific form made with React
 
 A form with name, e-mail, password strength and password confirmation validations.

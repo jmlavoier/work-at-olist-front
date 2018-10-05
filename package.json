@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
-    "postinstall": "webpack --mode production --config webpack.config.prod.js",
+    "postinstall": "webpack --mode production --config webpack.config.prod.js && yarn storybook:build",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",

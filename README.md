@@ -62,31 +62,35 @@ $ nvm alias default v8.10.0
 
 ### Building
 
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
+Before you try to make changes, start building the development environment to work.
 
-
-Build **dev** with live reload
+Build **dev** with live reload. Open you favoroite IDE or Text editor and make the most.
 ```
 $ yarn start
 ```
-Build **dev** with watch
+
+Build **dev** with watch. It watch all changes but it doesn't start any server.
 ```
 $ yarn watch
 ```
-Build **prod** on Heroku
+
+Build **prod** on Heroku. You mustn't care about this script, let's Heroku work for you.
 ```
 $ yarn postinstall
 ```
-> This script will execute every deployment, so don't try change this.
+> This script will execute every deployment.
 
 *You don't need to set up any environment variables* :wink:
 
 ### Deploying / Publishing
-The deployment will happen after the the merge in the **master** branch.
-But it will only execute if the checks on Travis CI are fully passed.
+The deployment will be done after the the merge to the **master** branch.
+But it will be only executed if all checks on Travis CI are passed.
 
-## Tests
+If you would like to contribute, after you change the code, you should create a new *pull request*. The Travis will advise you if everthing is alright or not.
+
+## Tests & lint
+
+It's fully recommended you get started to code while you take in consideration the **tests** and the **linter**. If you are comfortble with it, so you are gonna create a great code.
 
 Run test
 ```
@@ -103,11 +107,30 @@ Check the coverage of tests
 $ yarn test:cov
 ```
 
+Check the lint
+```
+$ yarn lint
+```
+
+Watch your code to lint
+```
+lint:watch
+```
+
+Fix some lint issues
+```
+lint:fix
+```
+
 ## Style guide
 
 - The [Olist Front Style Test](https://www.figma.com/file/rsSlx8jDHls6nWXziElWTk/olist----front-end-test) was the style guide to create this application.
-- Was created a [storybook documentation](https://jmlavoier.github.io/work-at-olist-front/) for all components created to make this application.
+- See the [storybook documentation](https://jmlavoier.github.io/work-at-olist-front/) with all of the components created  to get this done.
 
+You can see the components through your local environment
+```
+$ yarn storybook
+```
 
 ## Licensing
 

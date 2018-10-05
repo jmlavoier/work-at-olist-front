@@ -1,4 +1,4 @@
-![Logo of the project](./images/logo.sample.png)
+![Logo](./olist-logo.png)
 
 # Olist signup
 [![Build Status](https://travis-ci.org/jmlavoier/work-at-olist-front.svg?branch=master)](https://travis-ci.org/jmlavoier/work-at-olist-front)

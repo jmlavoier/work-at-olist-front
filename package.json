@@ -15,6 +15,7 @@
     "lint": "eslint src/**",
     "lint:watch": "esw src/** -w",
     "lint:fix": "eslint src/** --fix",
+    "coveralls": "jest --config jestconfig.json --coverage --coverageReporters=text-lcov | coveralls",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o docs"
   },

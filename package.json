@@ -15,7 +15,8 @@
     "lint": "eslint src/**",
     "lint:watch": "esw src/** -w",
     "lint:fix": "eslint src/** --fix",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o docs"
   },
   "engines": {
     "yarn": "1.7.0",

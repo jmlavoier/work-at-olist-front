@@ -12,7 +12,7 @@ A form with name, e-mail, password strength and password confirmation validation
 It was built using component-based architecture, and a little bit of FP, SOLID, KISS and DRY.
 All of the rules was created on top of the especification
 
-Take a look at the [demo](https://dashboard.heroku.com/apps/signup-olist-challenge/settings)
+Take a look at the [demo](https://signup-olist-challenge.herokuapp.com/)
 
 
 ## Installing / Getting started

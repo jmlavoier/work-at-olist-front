@@ -4,8 +4,10 @@
 > Magnific form made with React
 
 A form with name, e-mail, password strength and password confirmation validations.
-It was built using component-based architecture, SOLID, KISS and DRY.
+It was built using component-based architecture, and a little bit of FP, SOLID, KISS and DRY.
 All of the rules was created on top of the especification
+
+Take a look on the [demo](https://dashboard.heroku.com/apps/signup-olist-challenge/settings)
 
 
 ## Installing / Getting started
@@ -20,14 +22,14 @@ That will install all dependences before build a bundle version in memory and op
 ## Developing
 
 ### Built With
-- **React** as the main library
-- **Webpack** to create modularized architecture
-- **Babel** to use the newest version of Ecma Script
-- **ESlint** to assist in help to make the code clean
-- **CSS-loader** to load the CSS on JS
-- **SASS-loader** to write you fancy SASS styles
-- **File-loader** to load the fonts
-- **Redux** *No, no, no this application is too simple for this*
+- **React** as the main library.
+- **Webpack** to create modularized architecture.
+- **Babel** to use the newest version of Ecma Script.
+- **ESlint** to assist in help to make the code clean.
+- **CSS-loader** to load the CSS on JS.
+- **SASS-loader** to write you fancy SASS styles.
+- **File-loader** to load the fonts.
+- **Redux** *No, no, no! This application is too simple for this.*
 
 ### Prerequisites
 - **Node.js 8.10.0** - Recommended version.

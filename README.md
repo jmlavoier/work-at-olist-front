@@ -106,7 +106,7 @@ $ yarn test:cov
 ## Style guide
 
 - The [Olist Front Style Test](https://www.figma.com/file/rsSlx8jDHls6nWXziElWTk/olist----front-end-test) was the style guide to create this application.
-- Was created a [storybook documentation](https://jmlavoier.github.io/work-at-olist) of all components created to make this application.
+- Was created a [storybook documentation](https://jmlavoier.github.io/work-at-olist-front/) for all components created to make this application.
 
 
 ## Licensing

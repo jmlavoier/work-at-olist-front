@@ -1,104 +1,107 @@
-# Work at Olist Frontend
+![Logo of the project](./images/logo.sample.png)
 
-[Olist](https://olist.com/) is a company that offers an integration platform
-for sellers and marketplaces allowing them to sell their products across
-multiple channels.
+# Olist signup [![Build Status](https://travis-ci.org/jmlavoier/work-at-olist-front.svg?branch=master)](https://travis-ci.org/jmlavoier/work-at-olist-front) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [!Npm version](https://img.shields.io/badge/npm-v5.6.0-blue.svg)
+> Magnific form made with React
 
-The Olist [development team](https://engineering.olist.com/) consists of
-developers who love what they do. Our agile development processes and our
-search for the best development practices provide a great environment for
-professionals who like to create quality software in good company.
-
-We are always looking for good programmers who love to improve their work. We
-give preference to small teams with qualified professionals over large teams
-with average professionals.
-
-This repository contains a problem used to evaluate the candidate skills.
-It's important to notice that solving the problem is just a
-part of what will be evaluated. We also consider other programming disciplines
-like documentation, testing, commit timeline, design and coding best
-practices.
-
-Hints:
-
-* Carefully read the specification to understand all the problem and
-  artifact requirements before starting.
-* Check the recommendations and reference material at the end of this
-  specification.
+A form with name, e-mail, password strength and password confirmation validations.
+It was built using component-based architecture, SOLID, KISS and DRY.
+All of the rules was created on top of the especification
 
 
-## How to participate
+## Installing / Getting started
 
-* Make a fork of this repository on Github. If you aren't comfortable with
-   creating a public fork of this project, make a private repository
-   (gitlab offers free private repos) and add developer permission for the
-   user [@tech-hiring](https://gitlab.com/tech-hiring) on project;
-* Follow the instructions on README.md (this file);
-* Deploy your project on a host service (we recommend
-   [Heroku](https://heroku.com) or [Netlify](http://netlify.com/));
-* Apply for the position at our [career page](https://www.99jobs.com/olist)
-   with:
-   * Link to the fork on Github (or gitlab.com);
-   * Link to the project in the deployed host service.
+```shell
+$ cd work-at-olist-front
+$ yarn && yarn start
+```
 
+That will install all dependences before build a bundle version in memory and open the application in your favorite browser.
 
-## Specification
+## Developing
 
-Today, security is everything, but users still have the bad habit of creating
-accounts with weak passwords, and it is essential that we can offer the user
-ways to keep them safe. So, we must do our best to ensure the safety of our
-users.
+### Built With
+- **React** as the main library
+- **Webpack** to create modularized architecture
+- **Babel** to use the newest version of Ecma Script
+- **ESlint** to assist in help to make the code clean
+- **CSS-loader** to load the CSS on JS
+- **SASS-loader** to write you fancy SASS styles
+- **File-loader** to load the fonts
+- **Redux** *No, no, no this application is too simple for this*
 
-For this, you should implement a **new account** page, composed of Name, Email
-and Password with a strength measure indicator and Password confirmation. All
-these fields are required.
+### Prerequisites
+- **Node.js 8.10.0** - Recommended version.
+- **Yarn 1.7.0** - If you would like to make the most in performance to build packages, you can use the Yarn.
 
+### Setting up Dev
 
-## Style Guide
+Since I suppose that you have the Node and Yarn installed in your environment.
 
-The design of the page can be found in the link below:
+```shell
+$ git clone git@github.com:jmlavoier/work-at-olist-front.git
+$ cd work-at-olist-front
+```
 
-[Front-End Test Style Guide](https://www.figma.com/file/rsSlx8jDHls6nWXziElWTk/olist----front-end-test)
+Make sure your're able to run the project with Node.js. If don't have Node.js in your computer you can [download the recommended version](https://nodejs.org/en/) for this application.
 
-* It's very important that you build this page exactly as proposed, pixel by
-pixel.
+or
 
+If you have the node but you don't have the recommended version, you should install the **NVM** following its [documentation](https://github.com/creationix/nvm). After you complete the installation, you can install the recommended version on your environment:
 
-## Instructions
+```shell
+$ nvm install v8.10.0
+$ nvm alias default v8.10.0
+```
 
-* The submit button must be disabled until the form is valid.
-* The Name is required and Email must be a valid email.
-* The invalid input fields should have a border color like the style guide.
-* The valid input fields should have a border color like the style guide.
-* The Password input must make use of the sequence of validation presented in
-  the Style Guide
-* If the form is valid, the submit button should be clickable
-* When the form is submitted, it should present a loading status.
+### Building
 
-
-## Project Requirements:
-
-* Application must be written in HTML, JavaScript and CSS. You can only make
-  use of a CSS preprocessor.
-* You cannot use any Javascript library or framework with the exception of
-  polyfills.
-* Your page must support all modern browsers and IE 11+.
-* Write the project documentation containing: [Sample](https://github.com/elsewhencode/project-guidelines/blob/master/README.sample.md)
-  * Installing and testing instructions;
-  * Brief description of the work environment used to run this
-    project (Computer/operating system, text editor/IDE, libraries, etc).
-* Every text or code must be in English.
+If your project needs some additional steps for the developer to build the
+project after some code changes, state them here. for example:
 
 
-## Recommendations
+Build **dev** with live reload
+```
+$ yarn start
+```
+Build **dev** with watch
+```
+$ yarn watch
+```
+Build **prod** on Heroku
+```
+$ yarn postinstall
+```
+> This script will execute every deployment, so don't try change this.
 
-* Write tests!
-* Use [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)), [KISS](https://en.wikipedia.org/wiki/KISS_principle), [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) and [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
-* Use programming good practices;
-* Use [git best practices](https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/best-practices),
-  with clear messages (written in English);
-* If you build this with Web Components it will be a plus.
-* Feel free to use any language to serve the page if you need. Using Python,
-  Go or Elixir is a plus.
+*You don't need to set up any environment variables* :wink:
 
-**Have fun!**
+### Deploying / Publishing
+The deployment will happen after the the merge in the **master** branch.
+But it will only execute if the checks on Travis CI are fully passed.
+
+## Tests
+
+Run test
+```
+$ yarn test
+```
+
+Watch tests for TDD
+```
+$ yarn test:watch
+```
+
+Check the coverage of tests
+```
+$ yarn test:cov
+```
+
+## Style guide
+
+- The [Olist Front Style Test](https://www.figma.com/file/rsSlx8jDHls6nWXziElWTk/olist----front-end-test) was the style guide to create this application.
+- Was created a [storybook documentation](https://jmlavoier.github.io/work-at-olist) of all components created to make this application.
+
+
+## Licensing
+
+[MIT](https://github.com/jmlavoier/work-at-olist-front/blob/master/LICENSE)

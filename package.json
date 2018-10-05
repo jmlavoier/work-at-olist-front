@@ -6,16 +6,17 @@
   "author": "joaolavoier-luizalabs <joao.filho@luizalabs.com>",
   "license": "MIT",
   "scripts": {
+    "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "postinstall": "webpack --mode production --config webpack.config.prod.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
-    "build:dev": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",
     "test:cov": "jest --config jestconfig.json --coverage",
     "lint": "eslint src/**",
     "lint:watch": "esw src/** -w",
     "lint:fix": "eslint src/** --fix",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o docs"
   },
   "engines": {
     "yarn": "1.7.0",

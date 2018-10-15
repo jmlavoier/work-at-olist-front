@@ -1,5 +1,4 @@
 {
-  "setupTestFrameworkScriptFile": "../scripts/setupTest.js",
   "coverageDirectory": "../coverage",
   "unmockedModulePathPatterns": [
     "enzyme",

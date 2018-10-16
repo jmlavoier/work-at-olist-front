@@ -2,8 +2,6 @@ import Form from './Form';
 
 const ComponentForm = Form('app', {}).component;
 
-console.log(ComponentForm);
-
 const getDOM = (Component) => {
   Component.renderChildrenComponents();
   const html = document.createElement('div');

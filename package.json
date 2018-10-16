@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --open --mode development --config webpack.config.dev.js",
-    "postinstall": "webpack --mode production --config webpack.config.prod.js && yarn storybook:build",
+    "postinstall": "webpack --mode production --config webpack.config.prod.js",
     "watch": "webpack --progress --watch --mode development --config webpack.config.dev.js",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",
@@ -15,19 +15,13 @@
     "lint": "eslint src/**",
     "lint:watch": "esw src/** -w",
     "lint:fix": "eslint src/** --fix",
-    "coveralls": "jest --config jestconfig.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o docs"
+    "coveralls": "jest --config jestconfig.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "engines": {
     "yarn": "1.7.0",
     "node": "8.10.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.11",
-    "@storybook/addon-info": "^3.4.11",
-    "@storybook/addons": "^3.4.11",
-    "@storybook/cli": "^3.4.11",
     "babel-core": "^6.26.0",
     "babel-eslint": "8",
     "babel-loader": "^7.1.4",

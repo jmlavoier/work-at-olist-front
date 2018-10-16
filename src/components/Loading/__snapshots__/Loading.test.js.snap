@@ -1,17 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Loading /> Should component match snapshot 1`] = `
-<div
-  className="loading"
->
-  <span
-    className="spin1"
-  />
-  <span
-    className="spin2"
-  />
-  <span
-    className="spin3"
-  />
-</div>
+"
+  <div class=\\"loading\\">
+    <span class=\\"spin1\\"></span>
+    <span class=\\"spin2\\"></span>
+    <span class=\\"spin3\\"></span>
+  </div>
+"
 `;

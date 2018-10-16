@@ -1,17 +1,23 @@
-import React from 'react';
+import { Component, prepareComponent } from 'helpers/engine';
 import Logo from 'components/Logo';
 
 import styles from './Box.sass';
 
-const Box = ({ children, ...otherProps }) => (
-  <div className={styles.box} {...otherProps}>
-    <div className={styles.header}>
-      <Logo />
-    </div>
-    <div>
-      {children}
-    </div>
-  </div>
-);
+class Box extends Component {
+  render() {
+    const { children } = this.props;
 
-export default Box;
+    this.template`
+      <div class="${styles.box}">
+        <div class="${styles.header}">
+          ${Logo('olist-logo')}
+        </div>
+        <div>
+          ${children}
+        </div>
+      </div>
+    `;
+  }
+}
+
+export default prepareComponent(Box);

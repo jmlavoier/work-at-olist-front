@@ -1,22 +1,61 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { Component, prepareComponent } from 'helpers/engine';
 
 import styles from './InputText.sass';
 
-const getInputStyles = (value, isValid, entered) => classNames(styles['input-text'], {
-  [styles.invalid]: entered && !isValid,
-  [styles.valid]: value && isValid,
-});
-
 class InputText extends Component {
-  constructor(props) {
-    super(props);
-
+  componentWillMount() {
     this.state = {
       entered: false,
+      isValid: true,
+      value: '',
     };
-    this.handleOnFocus = this.handleOnFocus.bind(this);
+  }
+
+  componentDidMount() {
+    const inputElement = this.element.querySelector('input');
+
+    this.events = [
+      {
+        el: inputElement,
+        events: {
+          focus: this.handleOnFocus.bind(this),
+          keyup: this.handleChange.bind(this),
+        }
+      }
+    ];
+
+    this.listeners = [
+      (previousState, nextState) => {
+        if (previousState.value !== nextState.value) {
+          inputElement.value = nextState.value;
+        }
+      },
+      (previousState, nextState) => {
+        const { isValid, entered, value } = nextState;
+
+        if (entered && !isValid) {
+          inputElement.classList.remove(styles.valid);
+          inputElement.classList.add(styles.invalid);
+          return;
+        }
+
+        if (value && isValid) {
+          inputElement.classList.remove(styles.invalid);
+          inputElement.classList.add(styles.valid);
+          return;
+        }
+
+        inputElement.classList.remove(styles.invalid);
+        inputElement.classList.remove(styles.valid);
+      }
+    ]
+  }
+
+  handleChange(event) {
+    const { onChange } = this.props;
+    const { isValid } = this.state;
+
+    onChange(event, isValid);
   }
 
   handleOnFocus() {
@@ -27,41 +66,22 @@ class InputText extends Component {
 
   render() {
     const {
-      value,
-      onChange,
-      isValid,
-      label,
-      ...otherProps
+      label = '',
+      type = 'text',
+      style = '',
     } = this.props;
 
-    const { entered } = this.state;
-
-    return (
+    this.template`
       <div>
-        {label && <span className={styles.label}>{label}</span>}
+        ${label && `<span class="${styles.label}">${label}</span>`}
         <input
-          className={getInputStyles(value, isValid, entered)}
-          value={value}
-          onChange={onChange}
-          onFocus={this.handleOnFocus}
-          {...otherProps}
+          type="${type}"
+          class="${styles['input-text']}"
+          style="${style}"
         />
       </div>
-    );
+    `;
   }
 }
 
-InputText.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  isValid: PropTypes.bool,
-  label: PropTypes.string,
-};
-
-InputText.defaultProps = {
-  value: '',
-  isValid: true,
-  label: '',
-};
-
-export default InputText;
+export default prepareComponent(InputText);

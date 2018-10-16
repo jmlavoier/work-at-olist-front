@@ -3,4 +3,4 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@
 export const defaultValidation = (value, prevIsValid) => prevIsValid;
 export const nameValidation = value => value.length > 0;
 export const emailValidation = value => emailRegex.test(value);
-export const confirmapassValidation = passwordValue => value => passwordValue === value;
+export const confirmapassValidation = (passwordValue, value) => passwordValue === value;

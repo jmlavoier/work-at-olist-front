@@ -1,24 +1,25 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
 import Form from './Form';
-import {
-  INITIAL_FIELD,
-} from '../App/constants';
+
+const ComponentForm = Form('app', {}).component;
+
+console.log(ComponentForm);
+
+const getDOM = (Component) => {
+  Component.renderChildrenComponents();
+  const html = document.createElement('div');
+  html.appendChild(Component.element);
+  return {
+    el: html.firstElementChild,
+    string: html.innerHTML,
+  };
+}
 
 describe('<Form />', () => {
   it('Should component match snapshot', () => {
-    const form = {
-      name: INITIAL_FIELD,
-      email: INITIAL_FIELD,
-      password: INITIAL_FIELD,
-      confirmpass: INITIAL_FIELD,
-      buttonSubmit: {
-        isLoading: false,
-      }
-    };
-    const wrapper = shallow(<Form form={form} onChange={() => {}} onSubmit={() => {}} />);
 
-    expect(wrapper).toMatchSnapshot();
+    const component = new ComponentForm('form', {});
+    const wrapper = getDOM(component);
+
+    expect(wrapper.string).toMatchSnapshot();
   });
 });

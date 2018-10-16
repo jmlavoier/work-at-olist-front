@@ -1,15 +1,22 @@
 import Box from './Box';
 
+const ComponentBox = Box('box', {}).component;
+
+const getDOM = (Component) => {
+  Component.renderChildrenComponents();
+  const html = document.createElement('div');
+  html.appendChild(Component.element);
+  return {
+    el: html.firstElementChild,
+    string: html.innerHTML,
+  };
+}
+
 describe('<Box />', () => {
-  it('Should component render children', () => {
-    const child = <div>test</div>;
-    const wrapper = shallow(<Box>{child}</Box>);
-
-    expect(wrapper.contains(child)).toBeTruthy();
-  });
   it('Should component match snapshot', () => {
-    const wrapper = shallow(<Box />);
+    const component = new ComponentBox({});
+    const wrapper = getDOM(component);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.string).toMatchSnapshot();
   });
 });

@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'helpers/engine';
 
-const Logo = () => (
+const Logo = () => `
   <svg
     width="88"
     height="35"
@@ -49,6 +49,6 @@ const Logo = () => (
       fill="#0C29D0"
     />
   </svg>
-);
+`;
 
 export default Logo;

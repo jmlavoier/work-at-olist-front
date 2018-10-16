@@ -55,8 +55,10 @@ class Form extends Component {
       const nField = { ...nextState.form[fieldName] };
       const { value, isValid } = nField;
       const { child: Component } = this.getChildComponentRefByName(fieldName);
+      const { child: Button } = this.getChildComponentRefByName('button');
 
       Component.component.setState({ value, isValid });
+      Button.component.setState({ disabled: !isFormValid(nextState.form) });
     }
   }
 

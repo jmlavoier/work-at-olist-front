@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'helpers/classNames';
 import styles from './PasswordStrength.sass';
 
 export const createRules = value => ({
@@ -35,7 +35,7 @@ export const getStylesBar3 = strengthValue => classNames({
   [styles.green]: strengthValue === 3,
 });
 
-export const getStylesRule = (value, attendRule) => classNames(styles.rule, {
+export const getStylesRule = (value, attendRule) => classNames({
   [styles['rule-red']]: value && !attendRule,
   [styles['rule-green']]: value && attendRule,
 });

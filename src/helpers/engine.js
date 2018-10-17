@@ -2,7 +2,9 @@ export class Component {
   constructor(props = {}) {
     this.childrenComponents = [];
     this.props = props;
+    this.id = `${this.getRandomId()}`;
     this.state = {};
+    this.isMounted = true;
 
     this.events = [];
     this.listeners = [];
@@ -16,6 +18,7 @@ export class Component {
 
   componentWillMount() {}
   componentDidMount() {}
+  componentWillUnmount() {}
   render() {}
 
   setState(state) {
@@ -65,9 +68,33 @@ export class Component {
     return `${parseInt(123456 * Math.random(), 10)}`;
   }
 
+  unmountComponent() {
+    if (this.isMounted) {
+      this.componentWillUnmount();
+      this.isMounted = false;
+
+      if (this.parentComponent) {
+        this.parentComponent.renderChildrenUnmontedComponents();
+      }
+    }
+  }
+
+  mountComponent() {
+    this.componentWillMount();
+    this.render();
+    this.componentDidMount();
+    this.subscribeEvents();
+    this.executeListeners({}, this.state);
+    this.isMounted = true;
+
+    if (this.parentComponent) {
+      this.parentComponent.renderChildrenComponents();
+    }
+  }
+
   getChildComponentRefByName(name) {
     const [compRef] = this.childrenComponents.filter(
-      (componentRef) => componentRef.child.name === name
+      (componentRef) => componentRef.name === name
     );
 
     if (compRef) {
@@ -75,6 +102,11 @@ export class Component {
     }
 
     return null;
+  }
+
+  getTmpSpan() {
+    const tmpSpan = `<span id="tmp-${this.id}"></span>`;
+    return this.parseElement(tmpSpan);
   }
 
   template(strings, ...children) {
@@ -86,18 +118,16 @@ export class Component {
 
       if (child && child.component && typeof child.component === 'function') {
         const childComponent = new child.component(child.props);
+        childComponent.parentComponent = this;
 
         if (childComponent instanceof Component) {
           const componentRef = this.getChildComponentRefByName(child.name) || {
-            id: `tmp-${this.getRandomId()}`,
-            child: {
-              ...child,
-              component: childComponent,
-            },
+            ...child,
+            startedComponent: childComponent,
           };
 
           this.childrenComponents.push(componentRef);
-          return `${html} ${item} <span id="${componentRef.id}"></span>`;
+          return `${html}${item} <span id="tmp-${componentRef.startedComponent.id}"></span>`;
         }
       }
 
@@ -113,38 +143,60 @@ export class Component {
         return `${html} ${item} ${child.toString() || ''}`;
       }
 
-      return `${html} ${item} ${child || ''}`;
+      return `${html}${item}${child || ''}`;
     }, '');
 
+    console.log(templateString);
+
+    this.element = this.parseElement(templateString);
+    this.element.id = `cmp-${this.id}`
+  }
+
+  parseElement(templateString) {
     const html = document.createElement('div');
     html.innerHTML = templateString;
-    this.element = html.firstElementChild;
+    return html.firstElementChild;
   }
 
   getElement() {
-    return this.element;
+    return this.element || '';
   }
 
   renderChildrenComponents() {
     this.childrenComponents.forEach((componentRef) => {
+      if (componentRef.startedComponent.isMounted) {
+        const tmpSpan = this.element.querySelector(`#tmp-${componentRef.startedComponent.id}`);
 
-      const tmpSpan = this.element.querySelector(`#${componentRef.id}`);
-      if (tmpSpan && tmpSpan.parentElement) {
-        const { childNodes } = tmpSpan.parentElement;
-        for (let index = 0; index <= childNodes.length; index += 1) {
-          if (childNodes[index] && childNodes[index].id === componentRef.id) {
-            childNodes[index].replaceWith(componentRef.child.component.getElement());
-            componentRef.child.component.renderChildrenComponents();
-          }
+        if (tmpSpan) {
+          tmpSpan.replaceWith(componentRef.startedComponent.getElement());
+          componentRef.startedComponent.renderChildrenComponents();
+        }
+      }
+    });
+  }
+
+  renderChildrenUnmontedComponents() {
+    console.log(this);
+    this.childrenComponents.forEach((componentRef) => {
+      console.log(componentRef);
+      if (!componentRef.startedComponent.isMounted) {
+        const compDOM = this.element.querySelector(`#cmp-${componentRef.startedComponent.id}`);
+        console.log(compDOM);
+
+        if (compDOM) {
+          compDOM.replaceWith(componentRef.startedComponent.getTmpSpan());
+          componentRef.startedComponent.renderChildrenComponents();
         }
       }
     });
   }
 
   renderRoot(root) {
+    console.log(this.element);
     root.appendChild(this.element);
     if (this.childrenComponents.length) {
       this.renderChildrenComponents();
+      this.renderChildrenUnmontedComponents();
     }
   }
 }

@@ -11,12 +11,18 @@ class Button extends Component {
     }
   }
 
+  onClick(event) {
+    const { onClick } = this.props;
+    this.setState((state) => ({ isLoading: !state.isLoading }));
+    onClick(event)
+  }
+
   componentDidMount() {
     this.events = [
       {
         el: this.element,
         events: {
-          click: this.props.onClick,
+          click: this.onClick.bind(this),
         },
       },
     ];
@@ -31,14 +37,15 @@ class Button extends Component {
         }
       },
       (previousState, nextState) => {
-        const { text } = this.props;
-        const { child: Loading } = this.getChildComponentRefByName('loading');
+        if (previousState.isLoading !== nextState.isLoading) {
+          const { text } = this.props;
+          const { startedComponent: Loading } = this.getChildComponentRefByName('loading');
 
-        if (nextState.isLoading) {
-          this.element.innerHTML = '';
-          this.element.appendChild(Loading.component.element);
-        } else {
-          this.element.innerText = text;
+          if (nextState.isLoading) {
+            Loading.mountComponent();
+          } else {
+            Loading.unmountComponent();
+          }
         }
       }
     ];

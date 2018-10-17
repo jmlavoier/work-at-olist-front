@@ -54,11 +54,11 @@ class Form extends Component {
     return (previousState, nextState) => {
       const nField = { ...nextState.form[fieldName] };
       const { value, isValid } = nField;
-      const { child: Component } = this.getChildComponentRefByName(fieldName);
-      const { child: Button } = this.getChildComponentRefByName('button');
+      const { startedComponent: Component } = this.getChildComponentRefByName(fieldName);
+      const { startedComponent: Button } = this.getChildComponentRefByName('button');
 
-      Component.component.setState({ value, isValid });
-      Button.component.setState({ disabled: !isFormValid(nextState.form) });
+      Component.setState({ value, isValid });
+      Button.setState({ disabled: !isFormValid(nextState.form) });
     }
   }
 
@@ -85,7 +85,6 @@ class Form extends Component {
           break;
         }
         case 'password': {
-          const { child: ConfirmPassField } = this.getChildComponentRefByName('confirmpass');
           const isValidConfirmPass = confirmapassValidation(value, confirmpass.value);
           isValid = previuosIsValid;
 
@@ -115,7 +114,10 @@ class Form extends Component {
     }
   }
 
-  handleClick(onSubmit, form) {
+  handleClick(event) {
+    const { onSubmit } = this.props;
+    const { form } = this.state;
+
     if (isFormValid(form)) {
       onSubmit(form);
     }
@@ -127,18 +129,20 @@ class Form extends Component {
         <div class="${styles.header}">
           ${Logo('olist-logo')}
         </div>
-        <div>
+        <form>
           <div class="${styles.subtitle}">
             <h2>Crie sua conta</h2>
           </div>
 
           ${InputText('name', {
+            name: 'username',
             type: 'text',
             label: 'Nome completo',
             onChange: this.handleChangeField('name'),
           })}
 
           ${InputText('email', {
+            name: 'email',
             type: 'text',
             label: 'E-mail',
             onChange: this.handleChangeField('email'),
@@ -146,6 +150,7 @@ class Form extends Component {
 
           ${PasswordStrength('password', {
             label: 'Nome completo',
+            name: 'new-password',
             onChange: this.handleChangeField('password'),
             value: '',
           })}
@@ -159,11 +164,12 @@ class Form extends Component {
           <div class="${styles.footer}">
             ${Button('button', {
               type: 'button',
-              onClick: () => {},
+              name: 'confirm-password',
+              onClick: this.handleClick.bind(this),
               text: 'Criar conta',
             })}
           </div>
-        </div>
+        </form>
       </div>
     `;
   }

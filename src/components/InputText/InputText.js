@@ -69,18 +69,22 @@ class InputText extends Component {
       label = '',
       type = 'text',
       style = '',
+      name = '',
     } = this.props;
 
     this.template`
       <div>
         ${label && `<span class="${styles.label}">${label}</span>`}
         <input
+          name="${name}"
+          autocomplete="${name}"
           type="${type}"
           class="${styles['input-text']}"
           style="${style}"
         />
       </div>
     `;
+
   }
 }
 

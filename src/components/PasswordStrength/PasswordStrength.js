@@ -22,7 +22,7 @@ class PasswordStrength extends Component {
   }
 
   componentDidMount() {
-    const { child: inputPassword } = this.getChildComponentRefByName('password');
+    const { startedComponent: inputPassword } = this.getChildComponentRefByName('password');
     const bar1 = this.element.querySelector('#bar1');
     const bar2 = this.element.querySelector('#bar2');
     const bar3 = this.element.querySelector('#bar3');
@@ -37,7 +37,7 @@ class PasswordStrength extends Component {
           const rules = createRules(value);
           const strengthValue = getStrengthvalue(rules);
 
-          inputPassword.component.setState({
+          inputPassword.setState({
             value,
             isValid,
           });
@@ -65,7 +65,7 @@ class PasswordStrength extends Component {
 
 
   render() {
-    const { value } = this.props;
+    const { value, name } = this.props;
     const rules = createRules(value);
     const strengthValue = getStrengthvalue(rules);
 
@@ -74,6 +74,7 @@ class PasswordStrength extends Component {
         ${InputText(
           'password',
           {
+            name,
             type: 'password',
             label: 'Senha',
             style: styleSheet.InputText,

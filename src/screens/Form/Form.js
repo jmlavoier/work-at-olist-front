@@ -42,6 +42,9 @@ class Form extends Component {
   }
 
   componentDidMount() {
+    const ButtonRef = this.getChildComponentRefByName('button');
+    this.Button = ButtonRef.startedComponent;
+
     this.listeners = [
       this.listen('name').bind(this),
       this.listen('email').bind(this),
@@ -55,15 +58,11 @@ class Form extends Component {
       const nField = { ...nextState.form[fieldName] };
       const { value, isValid } = nField;
       const { startedComponent: Component } = this.getChildComponentRefByName(fieldName);
-      const { startedComponent: Button } = this.getChildComponentRefByName('button');
+
 
       Component.setState({ value, isValid });
-      Button.setState({ disabled: !isFormValid(nextState.form) });
+      this.Button.setState({ disabled: !isFormValid(nextState.form) });
     }
-  }
-
-  setStateChanges(fieldName, value, isValid) {
-
   }
 
   handleChangeField(fieldName) {
@@ -118,7 +117,9 @@ class Form extends Component {
     const { onSubmit } = this.props;
     const { form } = this.state;
 
+
     if (isFormValid(form)) {
+      this.Button.setState({ isLoading: true });
       onSubmit(form);
     }
   };

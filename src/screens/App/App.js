@@ -27,7 +27,7 @@ class App extends Component {
 
     this.listeners = [
       (previousState, nextState) => {
-        if (previousState.screen !== nextState.screen) {
+        if (previousState.screen !== nextState.screen && nextState.screen === SCREENS.success) {
           Form.unmountComponent();
           Success.mountComponent();
         }
@@ -41,7 +41,7 @@ class App extends Component {
     });
   }
 
-  onSubmit() {
+  onSubmit(form) {
     api.postForm(form).then((data) => {
       if (data.status === '200') {
         this.navigateSucceess();

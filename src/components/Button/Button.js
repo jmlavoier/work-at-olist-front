@@ -13,7 +13,6 @@ class Button extends Component {
 
   onClick(event) {
     const { onClick } = this.props;
-    this.setState((state) => ({ isLoading: !state.isLoading }));
     onClick(event)
   }
 
@@ -43,8 +42,10 @@ class Button extends Component {
 
           if (nextState.isLoading) {
             Loading.mountComponent();
+            this.element.querySelector('#description').remove();
           } else {
             Loading.unmountComponent();
+            this.element.appendChild(this.parseElement(`<span id="description">Criar conta</span>`));
           }
         }
       }

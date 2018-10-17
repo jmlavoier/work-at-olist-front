@@ -146,8 +146,6 @@ export class Component {
       return `${html}${item}${child || ''}`;
     }, '');
 
-    console.log(templateString);
-
     this.element = this.parseElement(templateString);
     this.element.id = `cmp-${this.id}`
   }
@@ -176,12 +174,9 @@ export class Component {
   }
 
   renderChildrenUnmontedComponents() {
-    console.log(this);
     this.childrenComponents.forEach((componentRef) => {
-      console.log(componentRef);
       if (!componentRef.startedComponent.isMounted) {
         const compDOM = this.element.querySelector(`#cmp-${componentRef.startedComponent.id}`);
-        console.log(compDOM);
 
         if (compDOM) {
           compDOM.replaceWith(componentRef.startedComponent.getTmpSpan());
@@ -192,7 +187,6 @@ export class Component {
   }
 
   renderRoot(root) {
-    console.log(this.element);
     root.appendChild(this.element);
     if (this.childrenComponents.length) {
       this.renderChildrenComponents();

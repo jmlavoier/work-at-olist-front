@@ -6,7 +6,7 @@
 [![Npm version](https://img.shields.io/badge/npm-5.6.0-brightgreen.svg)](https://www.npmjs.com/)
 [![Coverage Status](https://coveralls.io/repos/github/jmlavoier/work-at-olist-front/badge.svg?branch=master)](https://coveralls.io/github/jmlavoier/work-at-olist-front?branch=master)
  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
-> Magnific form made with React
+> Magnific form made with Vanilla JS
 
 A form with name, e-mail, password strength and password confirmation validations.
 It was built using component-based architecture, and a little bit of FP, SOLID, KISS and DRY.
@@ -27,18 +27,20 @@ That will install all dependences before build a bundle version in memory and op
 ## Developing
 
 ### Built With
-- **React** as the main library.
 - **Webpack** to create modularized architecture.
 - **Babel** to use the newest version of Ecma Script.
 - **ESlint** to assist in help to make the code clean.
 - **CSS-loader** to load the CSS on JS.
 - **SASS-loader** to write you fancy SASS styles.
 - **File-loader** to load the fonts.
-- **Redux** *No, no, no! This application is too simple for this.*
 
 ### Prerequisites
 - **Node.js 8.10.0** - Recommended version.
+- **Npm 5.6.0** - Package manager.
 - **Yarn 1.7.0** - If you would like to make the most in performance to build packages, you can use the Yarn.
+
+### Dependencies
+- **It doesn't have any dependendency**
 
 ### Setting up Dev
 
@@ -127,9 +129,103 @@ lint:fix
 - The [Olist Front Style Test](https://www.figma.com/file/rsSlx8jDHls6nWXziElWTk/olist----front-end-test) was the style guide to create this application.
 - See the [storybook documentation](https://jmlavoier.github.io/work-at-olist-front/) with all of the components created  to get this done.
 
-You can see the components through your local environment
+## How does it work?
+Each component extends a Component class. This class is an engine for rendering each component and its childrens. It simulate a component sounds like the React. It was used `template literals` for creating the html of things.
+
+Creating a simple **Component**
+```js
+import { Component } from 'helpers/engine';
+import Success from 'components/Success';
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      screen: SCREENS.form,
+    }
+  }
+
+  //Before the render method
+  componentWillMount() {
+  }
+
+  //After the render mothod
+  componentDidMount() {
+    //All events of this component
+    this.events = [
+      {
+        el: this.element,
+        events: {
+          click: this.onClick.bind(this),
+        },
+      },
+    ];
+
+    //It will be executed after each setState
+    this.listeners = [
+      (previousState, nextState) => {
+
+      },
+    ];
+  }
+
+  onClick(event) {
+    //This setState will change the state of its component
+    this.setState(() => ({
+      someState: true,
+    }));
+  }
+
+  render() {
+    this.template`
+      <div>
+        ${Success('success', {})}
+      </div>
+    `;
+  }
+}
+
+export default new App;
 ```
-$ yarn storybook
+
+Get the children components reference
+```js
+import { Component } from 'helpers/engine';
+import Success from 'components/Success';
+
+class App extends Component {
+  componentDidMount() {
+    const Button = this.getChildComponentRefByName('success'); // <- here
+    // This child component exists after the render
+    // now you can use the Button object as a Component
+    Button.setState({ isLoading: true });
+  }
+
+  render() {
+    //Wellcome to the template literals
+    //You can add your custom Component inside the template
+    //as that Sucsess('scucess', {})
+    this.template`
+      <div>
+        ${Success('success', {})}
+      </div>
+    `;
+  }
+}
+
+export default new App;
+```
+
+Export a Component
+```js
+import { Component, prepareComponent } from 'helpers/engine';
+
+class App extends Component {
+  //...
+}
+
+export default prepareComponent(App);
 ```
 
 ## Licensing

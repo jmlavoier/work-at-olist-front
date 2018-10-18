@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Box /> Should component match snapshot 1`] = `
-"<div class=\\" box \\">
-        <div class=\\" header \\">
-           
+"<div class=\\"box\\" id=\\"\\">
+        <div class=\\"header\\">
+          
   <svg width=\\"88\\" height=\\"35\\" viewBox=\\"0 0 88 35\\" fill=\\"none\\" xmlns=\\"http://www.w3.org/2000/svg\\">
     <path d=\\"M12.6772 9.73753C5.28215 9.73753 0 15.2493 0 22.3688C0
               29.4882 5.28215 35 12.6772 35C20.0262 35 25.3084 29.4882
@@ -31,10 +31,10 @@ exports[`<Box /> Should component match snapshot 1`] = `
         29.4423 81.2615 28.5696 81.0778 27.1457C80.9859 26.4567 80.9859
         25.8136 80.9859 25.0787V15.7087H87.1408Z\\" fill=\\"#0C29D0\\"></path>
   </svg>
- 
+
         </div>
         <div>
-            
+          
         </div>
       </div>"
 `;

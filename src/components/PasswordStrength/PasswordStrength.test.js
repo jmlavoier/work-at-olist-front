@@ -1,15 +1,7 @@
 import PasswordStrength from './PasswordStrength';
+import { mount } from 'helpers/engine';
 
 const ComponentPasswordStrength = PasswordStrength('pass', {}).component;
-
-const getDOM = (Component) => {
-  const html = document.createElement('div');
-  html.appendChild(Component.element);
-  return {
-    el: html.firstElementChild,
-    string: html.innerHTML,
-  };
-}
 
 describe('<PasswordStrength />', () => {
   it('Should component render with default props', () => {
@@ -17,7 +9,7 @@ describe('<PasswordStrength />', () => {
     const value = '';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('gray')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('gray')).toBeTruthy();
@@ -29,7 +21,7 @@ describe('<PasswordStrength />', () => {
     const value = 'x';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('gray')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('gray')).toBeTruthy();
@@ -41,7 +33,7 @@ describe('<PasswordStrength />', () => {
     const value = 'xxxxxx';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('red')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('gray')).toBeTruthy();
@@ -53,7 +45,7 @@ describe('<PasswordStrength />', () => {
     const value = 'U';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('red')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('gray')).toBeTruthy();
@@ -65,7 +57,7 @@ describe('<PasswordStrength />', () => {
     const value = '123';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('red')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('gray')).toBeTruthy();
@@ -77,7 +69,7 @@ describe('<PasswordStrength />', () => {
     const value = 'Xxxxxx';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('yellow')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('yellow')).toBeTruthy();
@@ -89,7 +81,7 @@ describe('<PasswordStrength />', () => {
     const value = '1U';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('yellow')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('yellow')).toBeTruthy();
@@ -101,7 +93,7 @@ describe('<PasswordStrength />', () => {
     const value = '1xxxxx';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('yellow')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('yellow')).toBeTruthy();
@@ -113,7 +105,7 @@ describe('<PasswordStrength />', () => {
     const value = '1Xxxxx';
 
     const component = new ComponentPasswordStrength({ onChange, value });
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.el.querySelector('#bar1').classList.contains('green')).toBeTruthy();
     expect(wrapper.el.querySelector('#bar2').classList.contains('green')).toBeTruthy();

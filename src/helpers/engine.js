@@ -206,3 +206,20 @@ export const prepareComponent = component => (name, props) => {
     component,
   };
 }
+
+//For tests
+export const mount = (Component) => {
+  const html = document.createElement('div');
+  Component.element.id = '';
+  const spans = Component.element.querySelectorAll('span[id^="tmp-"]');
+  if (spans) {
+    for (let i = 0; i < spans.length; i++) {
+      spans[i].id = '';
+    }
+  }
+  html.appendChild(Component.element);
+  return {
+    el: html.firstElementChild,
+    string: html.innerHTML,
+  };
+}

@@ -7,16 +7,6 @@ import IconRight from 'components/IconRight';
 
 import styles from './Success.sass';
 
-const getDOM = (Component) => {
-  // Component.renderChildrenComponents();
-  const html = document.createElement('div');
-  html.appendChild(Component.element);
-  return {
-    el: html.firstElementChild,
-    string: html.innerHTML,
-  };
-}
-
 class Success extends Component {
   render() {
     this.template`

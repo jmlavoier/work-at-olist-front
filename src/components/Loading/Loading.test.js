@@ -1,21 +1,12 @@
 import Loading from './Loading';
+import { mount } from 'helpers/engine';
 
 const ComponentLoading = Loading('loading', {}).component;
-
-const getDOM = (Component) => {
-  Component.renderChildrenComponents();
-  const html = document.createElement('div');
-  html.appendChild(Component.element);
-  return {
-    el: html.firstElementChild,
-    string: html.innerHTML,
-  };
-}
 
 describe('<Loading />', () => {
   it('Should component match snapshot', () => {
     const component = new ComponentLoading({});
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.string).toMatchSnapshot();
   });

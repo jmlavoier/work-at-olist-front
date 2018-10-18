@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Form /> Should component match snapshot 1`] = `
-"<div class=\\" container \\">
-        <div class=\\" header \\">
-           
+"<div class=\\"container\\" id=\\"\\">
+        <div class=\\"header\\">
+          
   <svg width=\\"88\\" height=\\"35\\" viewBox=\\"0 0 88 35\\" fill=\\"none\\" xmlns=\\"http://www.w3.org/2000/svg\\">
     <path d=\\"M12.6772 9.73753C5.28215 9.73753 0 15.2493 0 22.3688C0
               29.4882 5.28215 35 12.6772 35C20.0262 35 25.3084 29.4882
@@ -31,56 +31,24 @@ exports[`<Form /> Should component match snapshot 1`] = `
         29.4423 81.2615 28.5696 81.0778 27.1457C80.9859 26.4567 80.9859
         25.8136 80.9859 25.0787V15.7087H87.1408Z\\" fill=\\"#0C29D0\\"></path>
   </svg>
- 
+
         </div>
-        <div>
-          <div class=\\" subtitle \\">
+        <form>
+          <div class=\\"subtitle\\">
             <h2>Crie sua conta</h2>
           </div>
 
-           <div>
-         <span class=\\"label\\">Nome completo</span> 
-        <input type=\\" text \\" class=\\"input-text\\" style=\\"  \\">
-      </div> 
+           <span id=\\"\\"></span>
 
-           <div>
-         <span class=\\"label\\">E-mail</span> 
-        <input type=\\" text \\" class=\\"input-text\\" style=\\"  \\">
-      </div> 
+           <span id=\\"\\"></span>
 
-           <div>
-         <div>
-         <span class=\\"label\\">Senha</span> 
-        <input type=\\" password \\" class=\\"input-text\\" style=\\"  \\">
-      </div> 
-        <div>
-          <div class=\\" strength-bars \\">
-            <span id=\\"bar1\\" class=\\" gray\\"></span>
-            <span id=\\"bar2\\" class=\\" gray\\"></span>
-            <span id=\\"bar3\\" class=\\" gray\\"></span>
+           <span id=\\"\\"></span>
+
+           <span id=\\"\\"></span>
+
+          <div class=\\"footer\\">
+             <span id=\\"\\"></span>
           </div>
-          <ul class=\\" rules \\">
-            <li id=\\"rule1\\" class=\\"\\">Pelo menos 6 caracteres</li>
-            <li id=\\"rule2\\" class=\\"\\">Pelo menos 1 letra maiúscula</li>
-            <li id=\\"rule3\\" class=\\"\\">Pelo menos 1 número</li>
-          </ul>
-        </div>
-      </div> 
-
-           <div>
-         <span class=\\"label\\">Nome completo</span> 
-        <input type=\\" password \\" class=\\"input-text\\" style=\\"  \\">
-      </div> 
-
-          <div class=\\" footer \\">
-             <button type=\\"button\\" class=\\"button\\">
-         <div class=\\" loading \\">
-        <span class=\\" spin1 \\"></span>
-        <span class=\\" spin2 \\"></span>
-        <span class=\\" spin3 \\"></span>
-      </div> 
-      </button> 
-          </div>
-        </div>
+        </form>
       </div>"
 `;

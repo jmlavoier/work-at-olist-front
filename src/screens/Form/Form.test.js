@@ -1,22 +1,13 @@
 import Form from './Form';
+import { mount } from 'helpers/engine';
 
 const ComponentForm = Form('app', {}).component;
-
-const getDOM = (Component) => {
-  Component.renderChildrenComponents();
-  const html = document.createElement('div');
-  html.appendChild(Component.element);
-  return {
-    el: html.firstElementChild,
-    string: html.innerHTML,
-  };
-}
 
 describe('<Form />', () => {
   it('Should component match snapshot', () => {
 
     const component = new ComponentForm('form', {});
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
 
     expect(wrapper.string).toMatchSnapshot();
   });

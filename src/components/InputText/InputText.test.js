@@ -1,16 +1,7 @@
 import InputText from './InputText';
+import { mount } from 'helpers/engine';
 
 const ComponentInputText = InputText('icon', {}).component;
-
-const getDOM = (Component) => {
-  Component.renderChildrenComponents();
-  const html = document.createElement('div');
-  html.appendChild(Component.element);
-  return {
-    el: html.firstElementChild,
-    string: html.innerHTML,
-  };
-}
 
 describe('<InputText />', () => {
   it('Should component render value', () => {
@@ -20,7 +11,7 @@ describe('<InputText />', () => {
     const component = new ComponentInputText({ onChange });
     component.setState({ value });
 
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
     expect(wrapper.el.querySelector('input').value).toEqual(value);
   });
 
@@ -30,7 +21,7 @@ describe('<InputText />', () => {
     const onChange = jest.fn();
     const component = new ComponentInputText({ onChange, label });
 
-    const wrapper = getDOM(component);
+    const wrapper = mount(component);
     expect(wrapper.el.querySelector('.label').innerHTML).toEqual(label);
   });
 });

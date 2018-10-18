@@ -1,12 +1,16 @@
-import React from 'react';
+import { Component, prepareComponent } from 'helpers/engine';
 import styles from './Loading.sass';
 
-const Loading = () => (
-  <div className={styles.loading}>
-    <span className={styles.spin1} />
-    <span className={styles.spin2} />
-    <span className={styles.spin3} />
-  </div>
-);
+class Loading extends Component {
+  render() {
+    this.template`
+      <div class="${styles.loading}">
+        <span class="${styles.spin1}"></span>
+        <span class="${styles.spin2}"></span>
+        <span class="${styles.spin3}"></span>
+      </div>
+    `;
+  }
+}
 
-export default Loading;
+export default prepareComponent(Loading);

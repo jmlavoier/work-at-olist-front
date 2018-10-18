@@ -1,12 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
+import { prepareComponent } from 'helpers/engine';
 import App from './App';
+import { mount } from 'helpers/engine';
 
 describe('<App />', () => {
   it('Should component match snapshot', () => {
-    const wrapper = shallow(<App />);
+    const wrapper = mount(App);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.string).toMatchSnapshot();
   });
 });

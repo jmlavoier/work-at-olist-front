@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { Component, prepareComponent } from 'helpers/engine';
 
 import InputText from 'components/InputText';
 import styles from './PasswordStrength.sass';
@@ -14,53 +13,90 @@ import {
   styleSheet,
 } from './helpers';
 
-const handleChange = onChange => (event) => {
-  const { value } = event.currentTarget;
-  const rules = createRules(value);
-  const strengthValue = getStrengthvalue(rules);
-  const isValid = strengthValue === 3;
+class PasswordStrength extends Component {
+  componentWillMount() {
+    this.state = {
+      value: this.props.value,
+      isValid: true,
+    }
+  }
 
-  onChange(event, isValid);
-};
+  componentDidMount() {
+    const { startedComponent: inputPassword } = this.getChildComponentRefByName('password');
+    const bar1 = this.element.querySelector('#bar1');
+    const bar2 = this.element.querySelector('#bar2');
+    const bar3 = this.element.querySelector('#bar3');
+    const rule1 = this.element.querySelector('#rule1');
+    const rule2 = this.element.querySelector('#rule2');
+    const rule3 = this.element.querySelector('#rule3');
 
-const PasswordStrength = ({ value, onChange, isValid }) => {
-  const rules = createRules(value);
-  const strengthValue = getStrengthvalue(rules);
+    this.listeners = [
+      (previusState, nextState) => {
+        if (previusState.value !== nextState.value) {
+          const { value, isValid } = nextState;
+          const rules = createRules(value);
+          const strengthValue = getStrengthvalue(rules);
 
-  return (
-    <Fragment>
-      <InputText
-        type="password"
-        label="Senha"
-        value={value}
-        onChange={handleChange(onChange, rules)}
-        style={styleSheet.inputText}
-        isValid={isValid}
-      />
+          inputPassword.setState({
+            value,
+            isValid,
+          });
+
+          bar1.className = getStylesBar1(strengthValue);
+          bar2.className = getStylesBar2(strengthValue);
+          bar3.className = getStylesBar3(strengthValue);
+          rule1.className = getStylesRule(value, rules.hasMinChar);
+          rule2.className = getStylesRule(value, rules.hasUppercase);
+          rule3.className = getStylesRule(value, rules.hasNumber);
+        }
+      }
+    ];
+  }
+
+  handleChange(event) {
+    const { onChange } = this.props;
+    const { value } = event.target;
+    const rules = createRules(value);
+    const strengthValue = getStrengthvalue(rules);
+    const isValid = strengthValue === 3;
+
+    onChange(event, isValid);
+  };
+
+
+  render() {
+    const { value, name } = this.props;
+    const rules = createRules(value);
+    const strengthValue = getStrengthvalue(rules);
+
+    this.template`
       <div>
-        <div className={styles['strength-bars']}>
-          <span className={getStylesBar1(strengthValue)} />
-          <span className={getStylesBar2(strengthValue)} />
-          <span className={getStylesBar3(strengthValue)} />
+        ${InputText(
+          'password',
+          {
+            name,
+            type: 'password',
+            label: 'Senha',
+            style: styleSheet.InputText,
+            value: '',
+            onChange: this.handleChange.bind(this),
+          }
+        )}
+        <div>
+          <div class="${styles['strength-bars']}">
+            <span id="bar1" class="${getStylesBar1(strengthValue)}"></span>
+            <span id="bar2" class="${getStylesBar2(strengthValue)}"></span>
+            <span id="bar3" class="${getStylesBar3(strengthValue)}"></span>
+          </div>
+          <ul class="${styles.rules}">
+            <li id="rule1" class="${getStylesRule(value, rules.hasMinChar)}">Pelo menos 6 caracteres</li>
+            <li id="rule2" class="${getStylesRule(value, rules.hasUppercase)}">Pelo menos 1 letra maiúscula</li>
+            <li id="rule3" class="${getStylesRule(value, rules.hasNumber)}">Pelo menos 1 número</li>
+          </ul>
         </div>
-        <ul className={styles.rules}>
-          <li className={getStylesRule(value, rules.hasMinChar)}>Pelo menos 6 caracteres</li>
-          <li className={getStylesRule(value, rules.hasUppercase)}>Pelo menos 1 letra maiúscula</li>
-          <li className={getStylesRule(value, rules.hasNumber)}>Pelo menos 1 número</li>
-        </ul>
       </div>
-    </Fragment>
-  );
-};
+    `;
+  }
+}
 
-PasswordStrength.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  isValid: PropTypes.bool,
-};
-
-PasswordStrength.defaultProps = {
-  isValid: false,
-};
-
-export default PasswordStrength;
+export default prepareComponent(PasswordStrength);

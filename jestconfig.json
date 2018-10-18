@@ -1,8 +1,6 @@
 {
-  "setupTestFrameworkScriptFile": "../scripts/setupTest.js",
   "coverageDirectory": "../coverage",
   "unmockedModulePathPatterns": [
-    "react",
     "enzyme",
     "jest-enzyme"
   ],

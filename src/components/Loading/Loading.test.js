@@ -1,12 +1,13 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-
 import Loading from './Loading';
+import { mount } from 'helpers/engine';
+
+const ComponentLoading = Loading('loading', {}).component;
 
 describe('<Loading />', () => {
   it('Should component match snapshot', () => {
-    const wrapper = shallow(<Loading />);
+    const component = new ComponentLoading({});
+    const wrapper = mount(component);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.string).toMatchSnapshot();
   });
 });

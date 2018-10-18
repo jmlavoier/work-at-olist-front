@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Box from 'components/Box';
+import { Component, prepareComponent } from 'helpers/engine';
 
+import Logo from 'components/Logo';
 import Button from 'components/Button';
 import InputText from 'components/InputText';
 import PasswordStrength from 'components/PasswordStrength';
@@ -14,6 +13,10 @@ import {
   confirmapassValidation,
 } from './validations';
 
+import {
+  INITIAL_FIELD,
+} from './constants';
+
 const isFormValid = form => (
   form.name.isValid
     && form.email.isValid
@@ -21,95 +24,156 @@ const isFormValid = form => (
     && form.confirmpass.isValid
 );
 
-const handleChange = (fieldName, onChange, form, validate = defaultValidation) =>
-  (event, prevIsValid) => {
-    const { value } = event.currentTarget;
-    const isValid = validate(value, prevIsValid);
-    const { confirmpass } = form;
+const isFieldChanged = (pField, nField) => pField.value !== nField.value || pField.isValid !== nField.isValid
 
-    onChange(fieldName, value, isValid);
+class Form extends Component {
+  componentWillMount() {
+    this.state = {
+      form: {
+        name: INITIAL_FIELD,
+        email: INITIAL_FIELD,
+        password: INITIAL_FIELD,
+        confirmpass: INITIAL_FIELD,
+        buttonSubmit: {
+          isLoading: false,
+        },
+      },
+    };
+  }
 
-    if (fieldName === 'password') {
-      const isConfirmPassValid = confirmapassValidation(value)(confirmpass.value);
-      onChange('confirmpass', confirmpass.value, isConfirmPassValid);
+  componentDidMount() {
+    const ButtonRef = this.getChildComponentRefByName('button');
+    this.Button = ButtonRef.startedComponent;
+
+    this.listeners = [
+      this.listen('name').bind(this),
+      this.listen('email').bind(this),
+      this.listen('password').bind(this),
+      this.listen('confirmpass').bind(this),
+    ];
+  }
+
+  listen(fieldName) {
+    return (previousState, nextState) => {
+      const nField = { ...nextState.form[fieldName] };
+      const { value, isValid } = nField;
+      const { startedComponent: Component } = this.getChildComponentRefByName(fieldName);
+
+
+      Component.setState({ value, isValid });
+      this.Button.setState({ disabled: !isFormValid(nextState.form) });
+    }
+  }
+
+  handleChangeField(fieldName) {
+    return (event, previuosIsValid) => {
+      const { password, confirmpass } = this.state.form;
+      const { value } = event.target;
+      let isValid;
+      let fieldsState = {};
+
+      switch(fieldName) {
+        case 'name':
+          isValid = nameValidation(value);
+          break;
+        case 'email':
+          isValid = emailValidation(value);
+          break;
+        case 'confirmpass': {
+          isValid = confirmapassValidation(password.value, value);
+          break;
+        }
+        case 'password': {
+          const isValidConfirmPass = confirmapassValidation(value, confirmpass.value);
+          isValid = previuosIsValid;
+
+          fieldsState = {
+            confirmpass: {
+              value: confirmpass.value,
+              isValid: isValidConfirmPass,
+            }
+          };
+        }
+      }
+
+      fieldsState = {
+        ...fieldsState,
+        [fieldName]: {
+          isValid,
+          value,
+        }
+      }
+
+      this.setState(({ form }) => ({
+        form: {
+          ...form,
+          ...fieldsState,
+        },
+      }));
+    }
+  }
+
+  handleClick(event) {
+    const { onSubmit } = this.props;
+    const { form } = this.state;
+
+
+    if (isFormValid(form)) {
+      this.Button.setState({ isLoading: true });
+      onSubmit(form);
     }
   };
 
-const handleClick = (onSubmit, form) => () => {
-  if (isFormValid(form)) {
-    onSubmit(form);
+  render() {
+    this.template`
+      <div class="${styles.container}">
+        <div class="${styles.header}">
+          ${Logo('olist-logo')}
+        </div>
+        <form>
+          <div class="${styles.subtitle}">
+            <h2>Crie sua conta</h2>
+          </div>
+
+          ${InputText('name', {
+            name: 'username',
+            type: 'text',
+            label: 'Nome completo',
+            onChange: this.handleChangeField('name'),
+          })}
+
+          ${InputText('email', {
+            name: 'email',
+            type: 'text',
+            label: 'E-mail',
+            onChange: this.handleChangeField('email'),
+          })}
+
+          ${PasswordStrength('password', {
+            label: 'Nome completo',
+            name: 'new-password',
+            onChange: this.handleChangeField('password'),
+            value: '',
+          })}
+
+          ${InputText('confirmpass', {
+            type: 'password',
+            label: 'Nome completo',
+            onChange: this.handleChangeField('confirmpass'),
+          })}
+
+          <div class="${styles.footer}">
+            ${Button('button', {
+              type: 'button',
+              name: 'confirm-password',
+              onClick: this.handleClick.bind(this),
+              text: 'Criar conta',
+            })}
+          </div>
+        </form>
+      </div>
+    `;
   }
-};
+}
 
-const App = ({ form, onChange, onSubmit }) => {
-  const {
-    name,
-    email,
-    password,
-    confirmpass,
-    buttonSubmit,
-  } = form;
-
-  return (
-    <div>
-      <Box>
-        <div className={styles.subtitle}>
-          <h2>Crie sua conta</h2>
-        </div>
-        <InputText
-          label="Nome completo"
-          onChange={handleChange('name', onChange, form, nameValidation)}
-          value={name.value}
-          isValid={name.isValid}
-        />
-        <InputText
-          label="E-mail"
-          onChange={handleChange('email', onChange, form, emailValidation)}
-          value={email.value}
-          isValid={email.isValid}
-        />
-        <PasswordStrength
-          onChange={handleChange('password', onChange, form)}
-          value={password.value}
-          isValid={password.isValid}
-        />
-        <InputText
-          type="password"
-          label="Confirme sua senha"
-          onChange={handleChange(
-            'confirmpass',
-            onChange,
-            form,
-            confirmapassValidation(password.value),
-          )}
-          value={confirmpass.value}
-          isValid={confirmpass.isValid}
-        />
-        <div className={styles.footer}>
-          <Button
-            type="buton"
-            onClick={handleClick(onSubmit, form)}
-            isLoading={buttonSubmit.isLoading}
-            disabled={!isFormValid(form)}
-          >
-            Criar conta
-          </Button>
-        </div>
-      </Box>
-    </div>
-  );
-};
-
-App.propTypes = {
-  form: PropTypes.shape({
-    name: PropTypes.object.isRequired,
-    email: PropTypes.object.isRequired,
-    password: PropTypes.object.isRequired,
-    confirmpass: PropTypes.object.isRequired,
-    buttonSubmit: PropTypes.object.isRequired,
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export default App;
+export default prepareComponent(Form);

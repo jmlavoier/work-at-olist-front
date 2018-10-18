@@ -1,13 +1,11 @@
-import React from 'react';
-
-const IconRight = () => (
+const IconRight = () => `
   <svg
-    width="84"
-    height="84"
-    viewBox="0 0 84 84"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+      width="84"
+      height="84"
+      viewBox="0 0 84 84"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
     <path
       d="M36.0001 50.3399L27.6601 41.9999L24.8201 44.8199L36.0001
       55.9999L60.0001 31.9999L57.1801 29.1799L36.0001 50.3399Z"
@@ -21,6 +19,6 @@ const IconRight = () => (
       strokeWidth="3"
     />
   </svg>
-);
+`;
 
 export default IconRight;

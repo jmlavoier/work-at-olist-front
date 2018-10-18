@@ -1,12 +1,13 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
 import Success from './Success';
+import { mount } from 'helpers/engine';
+
+const ComponenSuccess = Success('success', {}).component;
 
 describe('<Success />', () => {
   it('Should component match snapshot', () => {
-    const wrapper = shallow(<Success />);
+    const component = new ComponenSuccess({});
+    const wrapper = mount(component);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.string).toMatchSnapshot();
   });
 });

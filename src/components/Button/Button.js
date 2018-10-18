@@ -1,38 +1,64 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Component, prepareComponent } from 'helpers/engine';
 import Loading from 'components/Loading';
-import classNames from 'classnames';
 
 import styles from './Button.sass';
 
-const getStyles = (isLoading, disabled) => classNames(styles.button, {
-  [styles['border-rounded']]: isLoading,
-  [styles.pointer]: !disabled,
-});
+class Button extends Component {
+  componentWillMount() {
+    this.state = {
+      disabled: true,
+      isLoading: false,
+    }
+  }
 
-const Button = ({
-  children,
-  onClick,
-  isLoading,
-  disabled,
-  ...otherProps
-}) => (
-  <button className={getStyles(isLoading, disabled)} onClick={onClick} {...otherProps}>
-    {!isLoading ? children : <Loading />}
-  </button>
-);
+  onClick(event) {
+    const { onClick } = this.props;
+    onClick(event)
+  }
 
-Button.propTypes = {
-  children: PropTypes.node,
-  onClick: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  disabled: PropTypes.bool,
-};
+  componentDidMount() {
+    this.events = [
+      {
+        el: this.element,
+        events: {
+          click: this.onClick.bind(this),
+        },
+      },
+    ];
 
-Button.defaultProps = {
-  children: '',
-  isLoading: false,
-  disabled: false,
-};
+    this.listeners = [
+      () => {
+        const { disabled } = this.state;
+        if (!disabled) {
+          this.element.classList.add(styles.pointer);
+        } else {
+          this.element.classList.remove(styles.pointer);
+        }
+      },
+      (previousState, nextState) => {
+        if (previousState.isLoading !== nextState.isLoading) {
+          const { text } = this.props;
+          const { startedComponent: Loading } = this.getChildComponentRefByName('loading');
 
-export default Button;
+          if (nextState.isLoading) {
+            Loading.mountComponent();
+            this.element.querySelector('#description').remove();
+          } else {
+            Loading.unmountComponent();
+            this.element.appendChild(this.parseElement(`<span id="description">Criar conta</span>`));
+          }
+        }
+      }
+    ];
+  }
+
+  render() {
+    this.template`
+      <button type="button" class="${styles.button}">
+        ${Loading('loading', {})}
+      </button>
+    `;
+  }
+}
+
+export default prepareComponent(Button);

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'helpers/engine';
+import styles from './App.sass';
 
 import api from 'api';
 
@@ -6,41 +7,32 @@ import Form from 'screens/Form';
 import Success from 'screens/Success';
 
 import {
-  SCREENS,
-  INITIAL_FIELD,
+  SCREENS
 } from './constants';
-import styles from './App.sass';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
       screen: SCREENS.form,
-      form: {
-        name: INITIAL_FIELD,
-        email: INITIAL_FIELD,
-        password: INITIAL_FIELD,
-        confirmpass: INITIAL_FIELD,
-        buttonSubmit: {
-          isLoading: false,
-        },
-      },
-    };
-
-    this.handleChangeField = this.handleChangeField.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    }
   }
 
-  handleChangeField(fieldName, value, isValid) {
-    this.setState(({ form }) => ({
-      form: {
-        ...form,
-        [fieldName]: {
-          isValid,
-          value,
-        },
+  componentDidMount() {
+    const { startedComponent: Form } = this.getChildComponentRefByName('form');
+    const { startedComponent: Success } = this.getChildComponentRefByName('success');
+
+    Success.unmountComponent();
+
+    this.listeners = [
+      (previousState, nextState) => {
+        if (previousState.screen !== nextState.screen && nextState.screen === SCREENS.success) {
+          Form.unmountComponent();
+          Success.mountComponent();
+        }
       },
-    }));
+    ];
   }
 
   navigateSucceess() {
@@ -49,38 +41,24 @@ class App extends Component {
     });
   }
 
-  handleSubmit(form) {
-    this.setState(state => ({
-      form: {
-        ...state.form,
-        buttonSubmit: {
-          isLoading: true,
-        },
-      },
-    }), () => {
-      api.postForm(form).then((data) => {
-        if (data.status === '200') {
-          this.navigateSucceess();
-        }
-      });
+  onSubmit(form) {
+    api.postForm(form).then((data) => {
+      if (data.status === '200') {
+        this.navigateSucceess();
+      }
     });
   }
 
   render() {
-    const {
-      screen,
-      form,
-    } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <div className={styles.box}>
-          {screen === SCREENS.form && <Form onChange={this.handleChangeField} form={form} onSubmit={this.handleSubmit} />}
-          {screen === SCREENS.success && <Success />}
+    this.template`
+      <div class="${styles.container}">
+        <div class="${styles.box}">
+          ${Form('form', { onSubmit: this.onSubmit.bind(this) })}
+          ${Success('success', {})}
         </div>
       </div>
-    );
+    `;
   }
 }
 
-export default App;
+export default new App;
